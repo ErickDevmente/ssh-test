@@ -1,7 +1,7 @@
 
 function test() {
   return (
-    <div>Hola 2</div>
+    <div>Hola 3 </div>
   )
 }
 
