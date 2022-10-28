@@ -18,6 +18,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+    - run: echo "$AWS_SECRET_ACCESS_KEY"
+    - run: echo "$GITHUB_CONTEXT"
     - run: npm ci
     - name: serverless deploy
       uses: serverless/github-action@v3
