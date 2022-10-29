@@ -3,10 +3,6 @@ on:
   push:
     branches:
       - develop
-env:
-  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
 
 jobs:
   deploy:
@@ -17,14 +13,20 @@ jobs:
       matrix:
         node-version: [12.x]
     steps:
-    - uses: actions/checkout@v3
+    - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+    - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+    - run: echo "🍏 This job's status is ${{ job.status }}."
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: Verify variables
-      run: echo "This are my credentials $AWS_ACCESS_KEY and $AWS_SECRET_ACCESS"
     - name: serverless deploy
       uses: serverless/github-action@v3
       with:
